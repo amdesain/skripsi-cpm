@@ -33,6 +33,10 @@
                 font-size: 3.5rem;
             }
         }
+
+        .table>:not(:first-child) {
+            border-top: none;
+        }
     </style>
 
 
@@ -69,13 +73,13 @@
                 <div class="col-md-12">
                     <h3>Kegiatan</h3>
                     <form action="">
-                        <table class="table table-borderless table-form">
+                        <table class="table table-bordered table-form">
                             <thead>
                                 <tr>
                                     <th>Kode</th>
                                     <th>Deskripsi</th>
                                     <th>Bergantung</th>
-                                    <th>
+                                    <th class="text-end" style="width:1px">
                                         <button class="btn btn-sm btn-success tambah" type="button">Tambah</button>
                                     </th>
                                 </tr>
@@ -96,6 +100,9 @@
                             </tbody> 
                             <tbody class="append"></div> 
                         </table>
+                        <div class="form-group text-end">
+                            <button class="btn btn-primary">Generate</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -131,18 +138,25 @@
             <td>
                 <input type="text" class="form-control" name="bergantung[]" placeholder="eg:A,B,C">
             </td>
-            <td>
+            <td class="text-end ">
                 <button class="btn btn-sm btn-danger hapus" type="button">Hapus</button>
             </td>
         </tr>`
 
         $(document).ready(function () {
+
+            /**
+             * menambahkan baris
+             */
             $(document).on('click', '.tambah', function () {
                 var table = $('.table-form');
 
                 table.find('tbody.append').append(row);
             });
 
+            /**
+             * menghapus baris
+             */
             $(document).on('click', '.hapus', function () {
                 var current_row = $(this).parents('tr');
                 current_row.remove();
