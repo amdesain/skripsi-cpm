@@ -1,6 +1,4 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-
 class AppController extends CI_Controller {
 
 	public function index()
@@ -20,18 +18,17 @@ class AppController extends CI_Controller {
 
     private function generate_data(): array
     {
-        $kode = $this->input->get('kode');
-        $deskripsi = $this->input->get('deskripsi');
-        $bergantung = $this->input->get('bergantung');
-        $bergantung_array = $this->rearrange_bergantung($bergantung);
+        $bergantung_array = $this->rearrange_bergantung($this->input->get('bergantung'));
 
+        require_once(APPPATH.'controllers/CalculateController.php');
         $calculate_controller = new CalculateController();
-        $calculate_controller->calculate_forward($kode, $deskripsi, $bergantung_array);
+
+        $calculate_controller->calculate_forward($this->input, $bergantung_array);
 
         return [
-            'kode' => $kode,
-            'deskripsi' => $deskripsi,
-            'bergantung' => $bergantung,
+            'kode' => $this->input->get('kode'),
+            'deskripsi' => $this->input->get('deskripsi'),
+            'bergantung' => $this->input->get('bergantung'),
         ];
     }
 

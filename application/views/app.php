@@ -78,6 +78,7 @@
                                 <tr>
                                     <th>Kode</th>
                                     <th>Deskripsi</th>
+                                    <th>Durasi</th>
                                     <th>Bergantung</th>
                                     <th class="text-end" style="width:1px">
                                         <button class="btn btn-sm btn-success tambah" type="button">Tambah</button>
@@ -91,6 +92,9 @@
                                     </td>
                                     <td>
                                         <input type="text" class="form-control" name="deskripsi[]">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" name="durasi[]">
                                     </td>
                                     <td>
                                         <input type="text" class="form-control" name="bergantung[]" placeholder="eg:A,B,C">
@@ -134,6 +138,9 @@
             </td>
             <td>
                 <input type="text" class="form-control" name="deskripsi[]">
+            </td>
+            <td>
+                <input type="number" class="form-control" name="durasi[]">
             </td>
             <td>
                 <input type="text" class="form-control" name="bergantung[]" placeholder="eg:A,B,C">
