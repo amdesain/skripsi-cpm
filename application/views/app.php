@@ -150,7 +150,6 @@
              */
             $(document).on('click', '.tambah', function () {
                 var table = $('.table-form');
-
                 table.find('tbody.append').append(row);
             });
 
