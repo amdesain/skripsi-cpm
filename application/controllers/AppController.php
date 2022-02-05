@@ -1,5 +1,6 @@
 <?php
-class AppController extends CI_Controller {
+class AppController extends CI_Controller 
+{
 
 	public function index()
 	{
@@ -23,7 +24,7 @@ class AppController extends CI_Controller {
         require_once(APPPATH.'controllers/CalculateController.php');
         $calculate_controller = new CalculateController();
 
-        $calculate_controller->calculate_forward($this->input, $bergantung_array);
+        $calculate_controller->calculate($this->input, $bergantung_array);
 
         return [
             'kode' => $this->input->get('kode'),

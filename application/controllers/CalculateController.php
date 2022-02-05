@@ -1,7 +1,8 @@
 <?php
-class CalculateController extends CI_Controller {
+class CalculateController extends CI_Controller 
+{
 
-    public function calculate_forward(CI_Input $input, array $bergatung)
+    public function calculate(CI_Input $input, array $bergatung)
     {
         $kode = $input->get('kode');
         $deskripsi = $input->get('deskripsi');
@@ -9,9 +10,10 @@ class CalculateController extends CI_Controller {
 
         $new_arr = [];
         foreach ($kode as $index_kode => $row_kode) {
-            $new_arr[$index_kode] = [
+            $new_arr[$row_kode] = [
                 'deskripsi' => $deskripsi[$index_kode],
                 'durasi' => $durasi[$index_kode],
+                'bergantung' => $bergatung[$index_kode]
             ];
         }
     }
