@@ -19,12 +19,10 @@ class AppController extends CI_Controller
 
     private function generate_data(): array
     {
-        $bergantung_array = $this->rearrange_bergantung($this->input->get('bergantung'));
-
         require_once(APPPATH.'controllers/CalculateController.php');
         $calculate_controller = new CalculateController();
 
-        $calculate_controller->calculate($this->input, $bergantung_array);
+        $calculate_controller->calculate($this->input);
 
         return [
             'kode' => $this->input->get('kode'),
@@ -33,12 +31,4 @@ class AppController extends CI_Controller
         ];
     }
 
-    private function rearrange_bergantung(array $bergantung)
-    {
-        foreach ($bergantung as &$bergantung_row) {
-            $bergantung_row = explode(',', trim($bergantung_row));
-        }
-
-        return $bergantung;
-    }
 }
