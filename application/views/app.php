@@ -76,7 +76,7 @@
                         <table class="table table-bordered table-form">
                             <thead>
                                 <tr>
-                                    <th>Kode</th>
+                                    <th style="width: 10px;">Kode</th>
                                     <th>Deskripsi</th>
                                     <th>Durasi</th>
                                     <th>Bergantung</th>
@@ -86,22 +86,67 @@
                                 </tr>
                             </thead> 
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <input type="text" class="form-control" name="kode[]">
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control" name="deskripsi[]">
-                                    </td>
-                                    <td>
-                                        <input type="number" class="form-control" name="durasi[]">
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control" name="bergantung[]" placeholder="eg:A,B,C">
-                                    </td>
-                                    <td></td>
-                                </tr>
-                            </tbody> 
+                            <?php
+                                if (count($input->get('kode')) > 0) {
+                                    foreach ($input->get('kode') as $index => $row) {
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    name="kode[]" 
+                                                    value="<?= $row ?>">
+                                            </td>
+                                            <td>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    name="deskripsi[]" 
+                                                    value="<?= $input->get('deskripsi')[$index] ?>">
+                                            </td>
+                                            <td>
+                                                <input 
+                                                    type="number" 
+                                                    class="form-control" 
+                                                    name="durasi[]" 
+                                                    value="<?= $input->get('durasi')[$index] ?>">
+                                            </td>
+                                            <td>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    name="bergantung[]" 
+                                                    placeholder="Contoh:A,B,C" 
+                                                    value="<?= $input->get('bergantung')[$index] ?>">
+                                            </td>
+                                            <td>
+                                                <?= ($index > 0)? '<button class="btn btn-sm btn-danger hapus" type="button">Hapus</button>':'' ?>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                } else {
+                                    ?>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-control" name="kode[]">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" name="deskripsi[]">
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control" name="durasi[]">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" name="bergantung[]" placeholder="Contoh:A,B,C">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                }
+                            ?> 
+                            </tbody>
                             <tbody class="append"></div> 
                         </table>
                         <div class="form-group text-end">
@@ -109,6 +154,24 @@
                         </div>
                     </form>
                 </div>
+                <?php
+                    if (count($input->get('kode')) > 0) {
+                        ?>
+                            <div class="col-md-12">
+                                <h3>Hasil</h3>
+                                <p>
+                                    Dari data kegiatan diatas jalur kritis nya adalah
+                                    <b><?= $critical_path_formated ?></b>
+                                    dengan total <b><?= $total_days ?></b> hari
+                                </p>
+                                <p>
+                                    Dan kegiatan yang boleh molor adalah
+                                    <b><?= $float_path_formated ?></b>
+                                </p>
+                            </div>
+                        <?php
+                    }
+                ?>
             </div>
         </section>
 
@@ -143,9 +206,9 @@
                 <input type="number" class="form-control" name="durasi[]">
             </td>
             <td>
-                <input type="text" class="form-control" name="bergantung[]" placeholder="eg:A,B,C">
+                <input type="text" class="form-control" name="bergantung[]" placeholder="Contoh:A,B,C">
             </td>
-            <td class="text-end ">
+            <td class="text-end">
                 <button class="btn btn-sm btn-danger hapus" type="button">Hapus</button>
             </td>
         </tr>`
