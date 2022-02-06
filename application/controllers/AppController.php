@@ -46,9 +46,12 @@ class AppController extends CI_Controller
     {
         $result = [];
         $total_days = 0;
-        foreach ($critical_path as $row) {
+        foreach ($critical_path as $index => $row) {
             $result[] = $row['kode'];
-            $total_days += $row['lf'];
+
+            if (count($critical_path)-1 == $index) {
+                $total_days = $row['lf'];
+            }
         }
 
         return [
