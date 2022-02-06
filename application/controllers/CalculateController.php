@@ -9,9 +9,14 @@ class CalculateController extends CI_Controller
         $main_arr = $this->rearrage_array($input, $bergantung);
         $main_arr = $this->calculate_forward($main_arr);
         $main_arr = $this->calculate_backward($main_arr);
+        $critical_path = $this->critical_path($main_arr);
+        $float_path = $this->float_path($main_arr);
 
-        print_r($main_arr);
-        die();
+        return [
+            'main_arr' => $main_arr,
+            'critical_path' => $critical_path,
+            'float_path' => $float_path,
+        ];
     }
 
     private function make_array_bergantung(array $bergantung): array
@@ -62,7 +67,7 @@ class CalculateController extends CI_Controller
 
             if (count($row['bergantung']) > 0) {
                 $temp_ef = [];
-                foreach ($row['bergantung'] as $index_bergantung => $row_bergantung) {
+                foreach ($row['bergantung'] as $row_bergantung) {
                     $temp_ef[] = $this->search_array_by_code($row_bergantung, $arr)['ef'] ?? 0;
                 }
 
@@ -83,6 +88,11 @@ class CalculateController extends CI_Controller
         $reverse_array = array_reverse($arr);
 
         foreach ($reverse_array as $index => &$row) {
+
+            if ($row['lf'] ?? null) {
+                continue;
+            }
+
             if ($index == 0) {
                 // late finish
                 $row['lf'] = $row['ef'];
@@ -92,14 +102,47 @@ class CalculateController extends CI_Controller
                 $row['tf'] = $row['ls'] - $row['es'];
                 continue;
             }
+
+            $ls = $this->search_array_by_depends($row['kode'], $reverse_array);
+
+            // late finish
+            $row['lf'] = $ls - 1;
+            // late start
+            $row['ls'] = $row['lf'] - $row['d'] + 1;
+            // total float
+            $row['tf'] = $row['ls'] - $row['es'];
         }
 
         return array_reverse($reverse_array);
     }
 
-    private function search_array_by_code($kode, $array): array|null 
+    public function critical_path(array $arr): array
     {
-        foreach ($array as  $row) {
+        $result = [];
+        foreach ($arr as $row) {
+            if ($row['tf'] == 0) {
+                $result[] = $row;
+            }
+        }
+
+        return $result;
+    }
+
+    public function float_path(array $arr): array
+    {
+        $result = [];
+        foreach ($arr as $row) {
+            if ($row['tf'] > 0) {
+                $result[] = $row;
+            }
+        }
+
+        return $result;
+    }
+
+    private function search_array_by_code(string $kode, array $arr): array|null 
+    {
+        foreach ($arr as $row) {
             if ($row['kode'] === $kode) {
                 return $row;
             }
@@ -107,16 +150,16 @@ class CalculateController extends CI_Controller
         return null;
     }
 
-    private function search_array_by_depends($kode, $array): array 
+    private function search_array_by_depends(string $kode, array $arr): int 
     {
         $result = [];
-        foreach ($array as  $row) {
-            if ($row['kode'] === $kode) {
-                return $row;
+        foreach ($arr as $row) {
+            if (in_array($kode, $row['bergantung'])) {
+                $result[] = $row['ls'];
             }
         }
 
-        return $result;
+        return min($result);
     }
 
 }

@@ -22,7 +22,11 @@ class AppController extends CI_Controller
         require_once(APPPATH.'controllers/CalculateController.php');
         $calculate_controller = new CalculateController();
 
-        $calculate_controller->calculate($this->input);
+        $calculate = $calculate_controller->calculate($this->input);
+
+        $main_arr = $calculate['main_arr'];
+        $critcal_path = $calculate['critical_path'];
+        $float_path = $calculate['float_path'];
 
         return [
             'kode' => $this->input->get('kode'),
