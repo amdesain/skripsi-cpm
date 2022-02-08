@@ -13,6 +13,7 @@ class AppController extends CI_Controller
         }
 
         $data = $result;
+        $data['input'] = $this->input;
 
 		$this->load->view('app', $data);
 	}
@@ -34,7 +35,6 @@ class AppController extends CI_Controller
         $float_path_formated = $this->format_float_path($float_path);
 
         return [
-            'input' => $this->input,
             'main_arr' => $main_arr, 
             'critical_path_formated' => $critical_path_formated, 
             'total_days' => $total_days, 

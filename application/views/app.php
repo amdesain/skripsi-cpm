@@ -87,7 +87,7 @@
                             </thead> 
                             <tbody>
                             <?php
-                                if (count($input->get('kode')) > 0) {
+                                if (count($input->get('kode') ?? []) > 0) {
                                     foreach ($input->get('kode') as $index => $row) {
                                         ?>
                                         <tr>
@@ -120,7 +120,7 @@
                                                     placeholder="Contoh:A,B,C" 
                                                     value="<?= $input->get('bergantung')[$index] ?>">
                                             </td>
-                                            <td>
+                                            <td class="text-end">
                                                 <?= ($index > 0)? '<button class="btn btn-sm btn-danger hapus" type="button">Hapus</button>':'' ?>
                                             </td>
                                         </tr>
@@ -138,7 +138,7 @@
                                             <td>
                                                 <input type="number" class="form-control" name="durasi[]">
                                             </td>
-                                            <td>
+                                            <td class="text-end">
                                                 <input type="text" class="form-control" name="bergantung[]" placeholder="Contoh:A,B,C">
                                             </td>
                                             <td></td>
@@ -155,7 +155,7 @@
                     </form>
                 </div>
                 <?php
-                    if (count($input->get('kode')) > 0) {
+                    if (count($input->get('kode') ?? []) > 0) {
                         ?>
                             <div class="col-md-12">
                                 <h3>Hasil</h3>

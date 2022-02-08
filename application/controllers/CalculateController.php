@@ -89,10 +89,6 @@ class CalculateController extends CI_Controller
 
         foreach ($reverse_array as $index => &$row) {
 
-            if ($row['lf'] ?? null) {
-                continue;
-            }
-
             if ($index == 0) {
                 // late finish
                 $row['lf'] = $row['ef'];
