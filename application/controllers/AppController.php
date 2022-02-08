@@ -57,7 +57,7 @@ class AppController extends CI_Controller
         }
 
         return [
-            'result' => implode('->', $result),
+            'result' => implode(' <i class="fa fa-arrow-right"></i> ', $result),
             'total_days' => $total_days
         ];
     }
