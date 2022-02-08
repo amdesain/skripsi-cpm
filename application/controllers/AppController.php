@@ -39,6 +39,7 @@ class AppController extends CI_Controller
             'critical_path' => $critical_path, 
             'critical_path_formated' => $critical_path_formated, 
             'total_days' => $total_days, 
+            'float_path' => $float_path, 
             'float_path_formated' => $float_path_formated, 
         ];
     }

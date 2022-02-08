@@ -144,56 +144,83 @@
             ?>
                 <div class="col-md-12">
                     <h3>Hasil</h3>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-borderless">
-                                <tr>
-                                    <?php
-                                    foreach ($critical_path as $critical_path_index => $critical_path_row) {
-                                        if ($critical_path_index != 0) {
-                                    ?>
-                                        <td class="text-center align-middle">
-                                            <i class="fa fa-arrow-right fa-2x"></i>
-                                        </td>
-                                    <?php
-                                        }
-                                    ?>
-                                        <td class="px-1">
-                                            <table class="table table-bordered">
-                                                <tr>
-                                                    <td class="text-center"><?= $critical_path_row['es'] ?></td>
-                                                    <td class="text-center"><?= $critical_path_row['d'] ?></td>
-                                                    <td class="text-center"><?= $critical_path_row['ef'] ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center" colspan="3">
-                                                        <?= $critical_path_row['kode'] ?>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center"><?= $critical_path_row['ls'] ?></td>
-                                                    <td class="text-center"><?= $critical_path_row['tf'] ?></td>
-                                                    <td class="text-center"><?= $critical_path_row['lf'] ?></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    <?php
-                                    }
-                                    ?>
-                                </tr>
-                                <tr></tr>
-                            </table>
-                        </div>
-                    </div>
                     <p>
-                        Dari data kegiatan diatas jalur kritis nya adalah
+                        Dari data kegiatan diatas <b class="text-danger">jalur kritis</b> nya adalah
                         <b><?= $critical_path_formated ?></b>
                         dengan total <b><?= $total_days ?></b> hari
                     </p>
+                    <div class="row">
+                        <?php
+                        foreach ($critical_path as $critical_path_index => $critical_path_row) {
+                        ?>
+                            <div class="col-md-2 mb-5">
+                                <div class="row">
+                                    <div class="col-auto pt-5 <?= ($critical_path_index == 0)? 'opacity-0': '' ?>">
+                                        <i class="fa fa-arrow-right fa-2x"></i>
+                                    </div>
+                                    <div class="col">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <td class="text-center"><?= $critical_path_row['es'] ?></td>
+                                                <td class="text-center"><?= $critical_path_row['d'] ?></td>
+                                                <td class="text-center"><?= $critical_path_row['ef'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center" colspan="3">
+                                                    <?= $critical_path_row['kode'] ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center"><?= $critical_path_row['ls'] ?></td>
+                                                <td class="text-center"><?= $critical_path_row['tf'] ?></td>
+                                                <td class="text-center"><?= $critical_path_row['lf'] ?></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div> 
                     <p>
                         Dan kegiatan yang boleh molor adalah
                         <b><?= $float_path_formated ?></b>
                     </p>
+                    <div class="row">
+                        <?php
+                        foreach ($float_path as $float_path_index => $float_path_row) {
+                        ?>
+                            <div class="col-md-2 mb-5">
+                                <div class="row">
+                                    <div class="col-auto pt-5 opacity-0">
+                                        <i class="fa fa-arrow-right fa-2x"></i>
+                                    </div>
+                                    <div class="col">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <td class="text-center"><?= $float_path_row['es'] ?></td>
+                                                <td class="text-center"><?= $float_path_row['d'] ?></td>
+                                                <td class="text-center"><?= $float_path_row['ef'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center" colspan="3">
+                                                    <?= $float_path_row['kode'] ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center"><?= $float_path_row['ls'] ?></td>
+                                                <td class="text-center"><?= $float_path_row['tf'] ?></td>
+                                                <td class="text-center"><?= $float_path_row['lf'] ?></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div> 
                 </div>
             <?php
             }
