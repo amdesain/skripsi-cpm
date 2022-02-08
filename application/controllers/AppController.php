@@ -36,6 +36,7 @@ class AppController extends CI_Controller
 
         return [
             'main_arr' => $main_arr, 
+            'critical_path' => $critical_path, 
             'critical_path_formated' => $critical_path_formated, 
             'total_days' => $total_days, 
             'float_path_formated' => $float_path_formated, 

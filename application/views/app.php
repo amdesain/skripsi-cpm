@@ -14,6 +14,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="<?= base_url('assets/bootstrap.min.css') ?>" rel="stylesheet" crossorigin="anonymous">
+    <link href="<?= base_url('assets/fontawesome/css/all.min.css') ?>" rel="stylesheet">
 
     <!-- Favicons -->
     <meta name="theme-color" content="#7952b3">
@@ -84,100 +85,125 @@
                                         <button class="btn btn-sm btn-success tambah" type="button">Tambah</button>
                                     </th>
                                 </tr>
-                            </thead> 
+                            </thead>
                             <tbody>
-                            <?php
+                                <?php
                                 if (count($input->get('kode') ?? []) > 0) {
                                     foreach ($input->get('kode') as $index => $row) {
-                                        ?>
+                                ?>
                                         <tr>
                                             <td>
-                                                <input 
-                                                    type="text" 
-                                                    class="form-control" 
-                                                    name="kode[]" 
-                                                    value="<?= $row ?>">
+                                                <input type="text" class="form-control" name="kode[]" value="<?= $row ?>">
                                             </td>
                                             <td>
-                                                <input 
-                                                    type="text" 
-                                                    class="form-control" 
-                                                    name="deskripsi[]" 
-                                                    value="<?= $input->get('deskripsi')[$index] ?>">
+                                                <input type="text" class="form-control" name="deskripsi[]" value="<?= $input->get('deskripsi')[$index] ?>">
                                             </td>
                                             <td>
-                                                <input 
-                                                    type="number" 
-                                                    class="form-control" 
-                                                    name="durasi[]" 
-                                                    value="<?= $input->get('durasi')[$index] ?>">
+                                                <input type="number" class="form-control" name="durasi[]" value="<?= $input->get('durasi')[$index] ?>">
                                             </td>
                                             <td>
-                                                <input 
-                                                    type="text" 
-                                                    class="form-control" 
-                                                    name="bergantung[]" 
-                                                    placeholder="Contoh:A,B,C" 
-                                                    value="<?= $input->get('bergantung')[$index] ?>">
+                                                <input type="text" class="form-control" name="bergantung[]" placeholder="Contoh:A,B,C" value="<?= $input->get('bergantung')[$index] ?>">
                                             </td>
                                             <td class="text-end">
-                                                <?= ($index > 0)? '<button class="btn btn-sm btn-danger hapus" type="button">Hapus</button>':'' ?>
+                                                <?= ($index > 0) ? '<button class="btn btn-sm btn-danger hapus" type="button">Hapus</button>' : '' ?>
                                             </td>
                                         </tr>
-                                        <?php
+                                    <?php
                                     }
                                 } else {
                                     ?>
-                                        <tr>
-                                            <td>
-                                                <input type="text" class="form-control" name="kode[]">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" name="deskripsi[]">
-                                            </td>
-                                            <td>
-                                                <input type="number" class="form-control" name="durasi[]">
-                                            </td>
-                                            <td class="text-end">
-                                                <input type="text" class="form-control" name="bergantung[]" placeholder="Contoh:A,B,C">
-                                            </td>
-                                            <td></td>
-                                        </tr>
-                                    <?php
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control" name="kode[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="deskripsi[]">
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" name="durasi[]">
+                                        </td>
+                                        <td class="text-end">
+                                            <input type="text" class="form-control" name="bergantung[]" placeholder="Contoh:A,B,C">
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                <?php
                                 }
-                            ?> 
+                                ?>
                             </tbody>
-                            <tbody class="append"></div> 
-                        </table>
-                        <div class="form-group text-end">
-                            <button class="btn btn-primary">Generate</button>
-                        </div>
-                    </form>
+                            <tbody class="append">
                 </div>
-                <?php
-                    if (count($input->get('kode') ?? []) > 0) {
-                        ?>
-                            <div class="col-md-12">
-                                <h3>Hasil</h3>
-                                <p>
-                                    Dari data kegiatan diatas jalur kritis nya adalah
-                                    <b><?= $critical_path_formated ?></b>
-                                    dengan total <b><?= $total_days ?></b> hari
-                                </p>
-                                <p>
-                                    Dan kegiatan yang boleh molor adalah
-                                    <b><?= $float_path_formated ?></b>
-                                </p>
-                            </div>
-                        <?php
-                    }
-                ?>
+                </table>
+                <div class="form-group text-end">
+                    <button class="btn btn-primary">Generate</button>
+                </div>
+                </form>
+            </div>
+            <?php
+            if (count($input->get('kode') ?? []) > 0) {
+            ?>
+                <div class="col-md-12">
+                    <h3>Hasil</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <?php
+                                    foreach ($critical_path as $critical_path_index => $critical_path_row) {
+                                        if ($critical_path_index != 0) {
+                                    ?>
+                                        <td class="text-center align-middle">
+                                            <i class="fa fa-arrow-right fa-2x"></i>
+                                        </td>
+                                    <?php
+                                        }
+                                    ?>
+                                        <td class="px-1">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <td class="text-center"><?= $critical_path_row['es'] ?></td>
+                                                    <td class="text-center"><?= $critical_path_row['d'] ?></td>
+                                                    <td class="text-center"><?= $critical_path_row['ef'] ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center" colspan="3">
+                                                        <?= $critical_path_row['kode'] ?>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center"><?= $critical_path_row['ls'] ?></td>
+                                                    <td class="text-center"><?= $critical_path_row['tf'] ?></td>
+                                                    <td class="text-center"><?= $critical_path_row['lf'] ?></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    <?php
+                                    }
+                                    ?>
+                                </tr>
+                                <tr></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <p>
+                        Dari data kegiatan diatas jalur kritis nya adalah
+                        <b><?= $critical_path_formated ?></b>
+                        dengan total <b><?= $total_days ?></b> hari
+                    </p>
+                    <p>
+                        Dan kegiatan yang boleh molor adalah
+                        <b><?= $float_path_formated ?></b>
+                    </p>
+                </div>
+            <?php
+            }
+            ?>
             </div>
         </section>
 
     </main>
 
-    <div id="blueprint"> 
+    <div id="blueprint">
     </div>
 
     <footer class="text-muted py-5">
@@ -213,12 +239,12 @@
             </td>
         </tr>`
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             /**
              * menambahkan baris
              */
-            $(document).on('click', '.tambah', function () {
+            $(document).on('click', '.tambah', function() {
                 var table = $('.table-form');
                 table.find('tbody.append').append(row);
             });
@@ -226,7 +252,7 @@
             /**
              * menghapus baris
              */
-            $(document).on('click', '.hapus', function () {
+            $(document).on('click', '.hapus', function() {
                 var current_row = $(this).parents('tr');
                 current_row.remove();
             });
